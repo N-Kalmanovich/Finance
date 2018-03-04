@@ -4,8 +4,7 @@ In this folder most of my regular finance oriented files will be stored.
 
 Short descriptions
 
-bond_p.py:    
-    This program calculates the prices for annuity, perpetuity and zero coupon bonds.
+bond_p.py:  This program calculates the prices for annuity, perpetuity and zero coupon bonds.
 
 spot_forward_rate_finder.py:
     This program calculates the rates of spot, forwards and future spot rates based on LOOP.
