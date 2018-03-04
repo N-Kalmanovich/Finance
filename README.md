@@ -18,3 +18,6 @@ Put_call.py:
     
 Covered_interest.py: 
     This program finds arbitrage opprotunities for foreign exchange markets based on the spot, forwards and interest rates in the countries.
+
+df_spot.py: 
+    This program takes in a csv file with a list of bonds and finds the Discount Factor and Spot rates. It returns it all in a nice data table using the datascience package.
