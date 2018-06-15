@@ -5,6 +5,10 @@ from yahoo_historical import Fetcher
 from datascience import *
 import time
 import csv
+import re
+
+#%matplotlib inline
+#import matplotlib.pyplot as plt
 
 """
 This program will be able to take a list of tickets and provide us
@@ -194,9 +198,6 @@ def portfolio_info (stocks, rfr, market):
 
 
 
-
-
-
 def main():
 	
 	ticks = input("Enter the list of tickers: ")
@@ -233,6 +234,7 @@ def main():
 
 	stocks, market = chart_builder(ticks, start_time, market_maker)
 
+	#print(stocks)
 
 	Monte = []
 	top = [0,0,0,[]]                 #max sharp ratio portfolio
@@ -266,17 +268,26 @@ def main():
 	print("PortWeights: ", [[ticks[i] , mint[3][i]] for i in range(len(ticks))])
 	
 	t1 = time.time()
-	print("Execution Time: " , round((t1-t0), 4)/60, "Minutes")
+	print("Execution Time: " , round((t1-t0)/60, 4), "Minutes")
 
+	
 	ans = input("Would you like to vizualize your attempts?(Y/N): ")
 	
 	if ans.upper() == "Y":
-		viz = Table()
+		#viz = Table()
 		ssd = []
 		rets = []
 		for i in range(len(Monte)):
 			rets.append(Monte[i][0][0])
-			ssd.append(Monte[i][1][0])
-		viz = viz.with_columns("Attempts", np.asarray(range(len(Monte))), "Returns", np.asarray(rets), "Risk", np.asarray(ssd))
-		viz.scatter('Attempts')
-		print(viz)
+			ssd.append(pow(Monte[i][1][0], 0.5))
+		#viz = viz.with_columns("Attempts", np.asarray(range(len(Monte))), "Returns", np.asarray(rets), "Risk", np.asarray(ssd))
+
+		with open('Monte.csv', 'w') as csvfile:
+			writer = csv.writer(csvfile)
+			
+			writer.writerow([0, 1, 2]) #header
+			
+			numbering = [i for i in range(len(Monte))]
+
+			for k in range(len(Monte)):
+				writer.writerow([numbering[k],rets[k],ssd[k]])
